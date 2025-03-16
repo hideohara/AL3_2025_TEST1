@@ -24,8 +24,8 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// 汎用機能
 	Input* input = nullptr;
 	Audio* audio = nullptr;
-	AxisIndicator* axisIndicator = nullptr;
-	PrimitiveDrawer* primitiveDrawer = nullptr;
+	//AxisIndicator* axisIndicator = nullptr;
+	//PrimitiveDrawer* primitiveDrawer = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -62,11 +62,11 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	Model::StaticInitialize();
 
 	// 軸方向表示初期化
-	axisIndicator = AxisIndicator::GetInstance();
-	axisIndicator->Initialize();
+	//axisIndicator = AxisIndicator::GetInstance();
+	//axisIndicator->Initialize();
 
-	primitiveDrawer = PrimitiveDrawer::GetInstance();
-	primitiveDrawer->Initialize();
+	//primitiveDrawer = PrimitiveDrawer::GetInstance();
+	//primitiveDrawer->Initialize();
 #pragma endregion
 
 
@@ -96,7 +96,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// 入力関連の毎フレーム処理
 		input->Update();
 		// 軸表示の更新
-		axisIndicator->Update();
+		//axisIndicator->Update();
 		// ImGui受付終了
 		imguiManager->End();
 
@@ -109,11 +109,14 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// 描画開始
 		dxCommon->PreDraw();
 		// 軸表示の描画
-		axisIndicator->Draw();
+		//axisIndicator->Draw();
 		// プリミティブ描画のリセット
-		primitiveDrawer->Reset();
+		//primitiveDrawer->Reset();
 		// ImGui描画
 		imguiManager->Draw();
+
+		//camera_.translation_.y += 0.1f;
+		//camera_.UpdateMatrix();
 
 		// ----------------------------
 		// コマンドリストの取得
