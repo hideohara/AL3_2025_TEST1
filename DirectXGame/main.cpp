@@ -4,17 +4,19 @@
 using namespace KamataEngine;
 //using namespace MathUtility;
 
+// --------------------------------
+// 仮に、ここに入力
 // ワールド変換データ
 WorldTransform worldTransform_;
 // モデル
 Model* model_ = nullptr;
 // テクスチャハンドル
 uint32_t textureHandle_ = 0u;
-
 // カメラ
 Camera camera_;
-
+// DirectXCommon
 DirectXCommon* dxCommon_ = nullptr;
+// --------------------------------
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
@@ -24,8 +26,6 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// 汎用機能
 	Input* input = nullptr;
 	Audio* audio = nullptr;
-	//AxisIndicator* axisIndicator = nullptr;
-	//PrimitiveDrawer* primitiveDrawer = nullptr;
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
@@ -34,13 +34,11 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
 	dxCommon->Initialize(1280, 720, true);
-	//dxCommon->Initialize(win);
 
 #pragma region 汎用機能初期化
 	// ImGuiの初期化
 	ImGuiManager* imguiManager = ImGuiManager::GetInstance();
 	imguiManager->Initialize();
-	//imguiManager->Initialize(win, dxCommon);
 
 	// 入力の初期化
 	input = Input::GetInstance();
@@ -61,12 +59,6 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// 3Dモデル静的初期化
 	Model::StaticInitialize();
 
-	// 軸方向表示初期化
-	//axisIndicator = AxisIndicator::GetInstance();
-	//axisIndicator->Initialize();
-
-	//primitiveDrawer = PrimitiveDrawer::GetInstance();
-	//primitiveDrawer->Initialize();
 #pragma endregion
 
 
@@ -100,25 +92,22 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// ImGui受付終了
 		imguiManager->End();
 
-
+		// ----------------------------
+		// 更新処理
 		worldTransform_.translation_.x += 0.1f;
-		//worldTransform_.translation_ += {2, 2, 2};
-		// 行列を更新
 		worldTransform_.UpdateMatrix();
+		//camera_.translation_.y += 0.1f;
+		//camera_.UpdateMatrix();
+		// ----------------------------
 
 		// 描画開始
 		dxCommon->PreDraw();
-		// 軸表示の描画
-		//axisIndicator->Draw();
-		// プリミティブ描画のリセット
-		//primitiveDrawer->Reset();
 		// ImGui描画
 		imguiManager->Draw();
 
-		//camera_.translation_.y += 0.1f;
-		//camera_.UpdateMatrix();
-
 		// ----------------------------
+		// 描画処理
+		
 		// コマンドリストの取得
 		ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
@@ -129,17 +118,16 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// 3Dオブジェクト描画後処理
 		Model::PostDraw();
 		// ------------------------------
-
-
+		
 		// 描画終了
 		dxCommon->PostDraw();
-
-
 	}
 
-
+	// --------------------------------
+	// 仮に、ここで削除
 	delete model_;
-
+	// --------------------------------
+	
 	// 3Dモデル解放
 	Model::StaticFinalize();
 	audio->Finalize();
