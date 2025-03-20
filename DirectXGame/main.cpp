@@ -14,8 +14,6 @@ Model* model_ = nullptr;
 uint32_t textureHandle_ = 0u;
 // カメラ
 Camera camera_;
-// DirectXCommon
-DirectXCommon* dxCommon_ = nullptr;
 // --------------------------------
 
 // Windowsアプリでのエントリーポイント(main関数)
@@ -74,7 +72,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
 
-	dxCommon_ = DirectXCommon::GetInstance();
+	dxCommon = DirectXCommon::GetInstance();
 
 	// メインループ
 	while (true) {
@@ -109,7 +107,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		// 描画処理
 		
 		// コマンドリストの取得
-		ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
+		ID3D12GraphicsCommandList* commandList = dxCommon->GetCommandList();
 
 		// 3Dオブジェクト描画前処理
 		Model::PreDraw(commandList);
