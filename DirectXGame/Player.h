@@ -29,6 +29,8 @@ public: // メンバ関数
 	void Draw(Camera& camera);
 
 private:
+	Input* input_ = nullptr;
+
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 	// モデル

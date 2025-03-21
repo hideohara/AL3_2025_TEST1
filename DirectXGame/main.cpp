@@ -4,7 +4,6 @@
 #include "GameScene.h"
 
 using namespace KamataEngine;
-//using namespace MathUtility;
 
 // ゲームシーン
 GameScene* gameScene = nullptr;
